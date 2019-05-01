@@ -6,7 +6,12 @@ const textSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  
+
+  lang: {
+    type: String,
+    required: true
+  },
+
   toNumber: {
     type: String,
     required: true
