@@ -1,13 +1,11 @@
-require('dotenv').config()
-const twilio = require('twilio')
-const translate = require('yandex-translate')(process.env.YANDEX_TRANSLATE_KEY)
-const client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_SECRET_KEY)
+const express = require('express')
+const mongoose = require('mongoose')
+const routes = require('./config/routes')
 
-translate.translate('Hello', { to: 'ru' }, function(err, res){
-  client.messages.create({
-    body: res.text,
-    to: '+447496045540',
-    from: '+447723444712'
-  })
-    .then(message => console.log(message.sid))
-})
+const app = express()
+
+mongoose.connect('mongodb://localhost:27017/twilio-translate')
+
+app.use(routes)
+
+app.listen(4000, () => console.log('Translating on port 4K'))
